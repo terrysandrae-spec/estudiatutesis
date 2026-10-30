@@ -1,11 +1,10 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Guía interactiva de Sandra · Sustentación Exitosa para estudiar y entender tu tesis antes de sustentar.">
 <title>Estudia y entiende tu tesis</title>
-
-<meta property="og:title" content="Estudia y entiende tu tesis">
-<meta property="og:description" content="Guía interactiva para estudiar y entender tu tesis">
-<meta property="og:image" content="https://raw.githubusercontent.com/terrysandrae-spec/estudiatutesis/main/portada.png">
-<meta property="og:url" content="https://estudiatutesis.sustentacionexitosa.com">
-
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=Caveat:wght@600;700&display=swap">
@@ -36,6 +35,9 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+img{max-width:100%}
 html,body{background:var(--crema);color:var(--navy)}
 body{font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--papel)}
@@ -263,7 +265,7 @@ tr.marca-fila td{background:var(--dorado-claro)}
 .indice-panel{background:var(--crema);width:min(420px,100%);height:100%;overflow-y:auto;padding:calc(18px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) 18px}
 .indice-panel h3{font-size:22px;display:flex;justify-content:space-between;align-items:center}
 .indice-panel .mods{grid-template-columns:1fr}
-.cerrar{border:0;background:var(--papel);border-radius:99px;width:38px;height:38px;font-size:22px;color:var(--navy)}
+.cerrar{border:1.5px solid var(--linea);background:var(--papel);border-radius:99px;width:40px;height:40px;font-size:24px;line-height:1;color:var(--navy);display:grid;place-items:center;padding:0;flex:none}
 
 .pie{padding-block:24px 36px;text-align:center;color:var(--navy-suave);font-size:14px}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:99px;padding:10px 18px;font-weight:800;z-index:50;font-size:14px}
@@ -271,6 +273,8 @@ tr.marca-fila td{background:var(--dorado-claro)}
 @keyframes entra{from{opacity:.4;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
+</head>
+<body>
 
 <header class="top">
   <div class="wrap top-in">
@@ -706,3 +710,6 @@ var inicial=(location.hash||"").slice(1);
 ir(MODS.some(function(m){return m.id===inicial;})?inicial:"inicio");
 })();
 </script>
+
+</body>
+</html>
