@@ -1,0 +1,702 @@
+<title>Estudia y entiende tu tesis</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&family=Caveat:wght@600;700&display=swap">
+<style>
+/* Layout: ruta de estudio en 4 fases; portada con mapa de la ruta, luego una herramienta por pantalla con barra de progreso fija. Estética cálida de cuaderno de estudio, solo tema claro (decisión de marca). */
+:root{
+  --crema:#FFF8E7;
+  --papel:#FFFFFF;
+  --navy:#16324F;
+  --navy-suave:#4A5F78;
+  --turquesa:#1B9C9C;
+  --turquesa-claro:#E3F4F3;
+  --turquesa-hondo:#127474;
+  --dorado:#F5A623;
+  --dorado-claro:#FDF0D6;
+  --dorado-hondo:#9A6200;
+  --linea:#EADFC6;
+  --verde:#2E8B57;
+  --verde-claro:#E4F3EA;
+  --ambar:#C98200;
+  --ambar-claro:#FCF0D8;
+  --rojo-suave:#B5652B;
+  --rojo-claro:#F8E9DD;
+  --f-display:"Baloo 2","Nunito",system-ui,sans-serif;
+  --f-body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mano:"Caveat","Comic Sans MS",cursive;
+  --radio:18px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{background:var(--crema);color:var(--navy)}
+body{font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--papel)}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance;color:var(--navy)}
+p{margin:0}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--dorado);outline-offset:2px}
+a{color:var(--turquesa-hondo)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--papel);border-bottom:1px solid var(--linea)}
+.top-in{display:flex;align-items:center;gap:12px;padding-block:10px}
+.marca{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;color:var(--navy);text-align:left;min-width:0}
+.marca-sello{width:36px;height:36px;border-radius:12px;background:var(--turquesa);color:#fff;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:20px;flex:none}
+.marca-txt{display:flex;flex-direction:column;min-width:0}
+.marca-txt b{font-family:var(--f-display);font-size:16px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.marca-txt small{font-size:12px;color:var(--navy-suave);white-space:nowrap}
+.top-prog{margin-left:auto;display:flex;align-items:center;gap:10px}
+.barra{width:120px;height:10px;border-radius:99px;background:var(--turquesa-claro);overflow:hidden}
+.barra i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--turquesa),var(--dorado));border-radius:99px;transition:width .5s ease}
+.pct{font-weight:800;font-size:14px;font-variant-numeric:tabular-nums;color:var(--turquesa-hondo);min-width:38px;text-align:right}
+.btn-indice{border:1.5px solid var(--linea);background:var(--crema);color:var(--navy);border-radius:99px;padding:6px 14px;font-weight:800;font-size:14px}
+@media (max-width:520px){.barra{width:64px}.marca-txt small{display:none}}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:99px;padding:12px 22px;font-weight:800;font-size:16px;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-pri{background:var(--turquesa);color:#fff;box-shadow:0 6px 0 var(--turquesa-hondo)}
+.btn-pri:active{transform:translateY(3px);box-shadow:0 3px 0 var(--turquesa-hondo)}
+.btn-oro{background:var(--dorado);color:var(--navy);box-shadow:0 6px 0 #C98200}
+.btn-sec{background:var(--papel);color:var(--navy);border:2px solid var(--linea)}
+.btn-hecho{background:var(--verde-claro);color:var(--verde);border:2px solid #BFE0CB}
+
+/* Portada */
+.hero{position:relative;overflow:hidden;padding-block:44px 28px}
+.blob{position:absolute;border-radius:50%;filter:blur(2px);opacity:.55;z-index:0;animation:flota 14s ease-in-out infinite}
+.blob.b1{width:320px;height:320px;background:var(--turquesa-claro);top:-90px;right:-80px}
+.blob.b2{width:220px;height:220px;background:var(--dorado-claro);bottom:-60px;left:-70px;animation-delay:-5s}
+@keyframes flota{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-18px,14px) scale(1.06)}}
+.hero>*{position:relative;z-index:1}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--dorado-claro);color:var(--dorado-hondo);border-radius:99px;padding:5px 14px;font-weight:800;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+.hero h1{font-size:clamp(34px,7vw,58px);font-weight:800;margin-top:14px;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--turquesa)}
+.hero .sub{font-size:clamp(17px,2.4vw,20px);color:var(--navy-suave);max-width:58ch;margin-top:14px}
+.mano{font-family:var(--f-mano);font-size:26px;color:var(--turquesa-hondo);line-height:1.1}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:24px}
+
+.tepasa{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}
+.tepasa div{background:var(--papel);border:1.5px solid var(--linea);border-radius:var(--radio);padding:14px 16px;font-weight:700;font-size:15px}
+.tepasa div span{display:block;font-family:var(--f-display);font-size:28px;color:var(--dorado);line-height:1}
+@media (max-width:640px){.tepasa{grid-template-columns:1fr}}
+
+.seccion{padding-block:26px}
+.seccion h2{font-size:clamp(26px,4.5vw,34px)}
+.seccion .lead{color:var(--navy-suave);margin-top:6px;max-width:62ch}
+
+.fases{display:grid;gap:18px;margin-top:20px}
+.fase{background:var(--papel);border-radius:22px;padding:18px;border:1.5px solid var(--linea)}
+.fase-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.fase-num{font-family:var(--f-display);font-weight:800;font-size:15px;color:#fff;background:var(--navy);border-radius:99px;padding:2px 12px}
+.fase-head h3{font-size:22px}
+.fase-head p{color:var(--navy-suave);font-size:15px;flex-basis:100%}
+.mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:12px}
+.mod-card{display:flex;align-items:center;gap:12px;text-align:left;background:var(--crema);border:1.5px solid transparent;border-radius:14px;padding:12px 14px;color:var(--navy);font-weight:800;font-size:15px;line-height:1.3;transition:border-color .15s,background .15s}
+.mod-card:hover{border-color:var(--turquesa);background:var(--turquesa-claro)}
+.mod-card .n{flex:none;width:32px;height:32px;border-radius:10px;background:var(--papel);display:grid;place-items:center;font-family:var(--f-display);color:var(--turquesa-hondo);font-size:16px;border:1.5px solid var(--linea)}
+.mod-card.ok .n{background:var(--verde);color:#fff;border-color:var(--verde)}
+.mod-card small{display:block;font-weight:600;color:var(--navy-suave);font-size:13px}
+
+/* Vista módulo */
+.vista{padding-block:28px 40px}
+.eyebrow{font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--turquesa-hondo)}
+.vista h2{font-size:clamp(28px,5.5vw,42px);margin-top:6px}
+.intro{font-size:18px;color:var(--navy-suave);margin-top:10px;max-width:62ch}
+.bloque{margin-top:22px}
+.bloque>h3{font-size:22px;margin-bottom:10px}
+.caja{background:var(--papel);border:1.5px solid var(--linea);border-radius:var(--radio);padding:18px}
+.caja+.caja{margin-top:12px}
+.tip{display:flex;gap:14px;align-items:flex-start;background:var(--dorado-claro);border-radius:var(--radio);padding:16px 18px;margin-top:24px}
+.tip .firma{font-family:var(--f-mano);font-size:24px;color:var(--dorado-hondo);line-height:1;flex:none;padding-top:2px}
+.tip p{font-weight:700}
+.alerta{background:var(--turquesa-claro);border-radius:14px;padding:14px 16px;font-weight:600;margin-top:14px}
+.alerta b{color:var(--turquesa-hondo)}
+
+.pasos{display:grid;gap:12px;counter-reset:p}
+.paso{display:grid;grid-template-columns:auto 1fr;gap:14px;background:var(--papel);border:1.5px solid var(--linea);border-radius:var(--radio);padding:16px}
+.paso .num{width:44px;height:44px;border-radius:14px;background:var(--turquesa);color:#fff;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:22px}
+.paso h4{font-size:19px}
+.paso .meta{display:inline-block;background:var(--dorado-claro);color:var(--dorado-hondo);font-weight:800;font-size:12px;border-radius:99px;padding:2px 10px;margin-top:4px}
+.paso p{margin-top:6px;color:var(--navy-suave)}
+.paso ul{margin:8px 0 0;padding-left:20px;color:var(--navy-suave)}
+.paso>div{min-width:0}
+
+/* Quiz */
+.q{background:var(--papel);border:1.5px solid var(--linea);border-radius:var(--radio);padding:16px}
+.q+.q{margin-top:12px}
+.q h4{font-size:18px}
+.opts{display:grid;gap:8px;margin-top:10px}
+.opt{text-align:left;border:1.5px solid var(--linea);background:var(--crema);border-radius:12px;padding:10px 14px;font-weight:700;font-size:15px;color:var(--navy)}
+.opt:hover{border-color:var(--turquesa)}
+.opt.sel{background:var(--turquesa);color:#fff;border-color:var(--turquesa)}
+.resultado{margin-top:16px;border-radius:var(--radio);padding:20px;background:var(--navy);color:#fff}
+.resultado h3{color:#fff;font-size:24px}
+.resultado p{margin-top:8px;color:#DCE6F0}
+.resultado .pill{margin-bottom:8px}
+
+/* Hilo conductor */
+.hilo{display:grid;gap:0}
+.eslabon{display:grid;grid-template-columns:44px 1fr;gap:12px;position:relative}
+.eslabon::before{content:"";position:absolute;left:21px;top:44px;bottom:-6px;width:3px;background:repeating-linear-gradient(var(--turquesa) 0 6px,transparent 6px 11px)}
+.eslabon:last-child::before{display:none}
+.eslabon .nodo{width:44px;height:44px;border-radius:50%;background:var(--papel);border:3px solid var(--turquesa);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;color:var(--turquesa-hondo);font-size:18px;z-index:1}
+.eslabon.lleno .nodo{background:var(--turquesa);color:#fff}
+.eslabon .campo{padding-bottom:18px;min-width:0}
+.campo label{display:block;font-family:var(--f-display);font-weight:700;font-size:18px}
+.campo .ayuda{font-size:14px;color:var(--navy-suave);margin:2px 0 6px}
+textarea,input[type=text]{width:100%;font-family:var(--f-body);font-size:15px;color:var(--navy);background:var(--papel);border:1.5px solid var(--linea);border-radius:12px;padding:10px 12px;resize:vertical}
+textarea:focus,input[type=text]:focus{border-color:var(--turquesa);outline:none;box-shadow:0 0 0 3px var(--turquesa-claro)}
+.fila-btn{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.chip{display:inline-block;background:var(--turquesa-claro);color:var(--turquesa-hondo);border-radius:99px;padding:3px 10px;font-weight:800;font-size:13px;margin:2px 4px 2px 0}
+.chip.oro{background:var(--dorado-claro);color:var(--dorado-hondo)}
+
+/* Acordeón */
+details{background:var(--papel);border:1.5px solid var(--linea);border-radius:var(--radio);padding:0 16px}
+details+details{margin-top:10px}
+summary{list-style:none;cursor:pointer;padding:14px 0;font-family:var(--f-display);font-weight:700;font-size:18px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:26px;color:var(--turquesa);line-height:1;flex:none}
+details[open] summary::after{content:"–"}
+details .cuerpo{padding-bottom:16px}
+.respuesta{background:var(--turquesa-claro);border-radius:12px;padding:12px 14px;margin-top:10px;font-weight:600}
+.respuesta::before{content:"Así lo puedes decir:";display:block;font-weight:800;color:var(--turquesa-hondo);font-size:13px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.busca{font-size:14px;color:var(--navy-suave);margin-top:6px}
+.busca b{color:var(--dorado-hondo)}
+
+/* Tabla */
+.tabla-wrap{overflow-x:auto;border-radius:14px;border:1.5px solid var(--linea);background:var(--papel)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--linea)}
+th{background:var(--crema);font-family:var(--f-display);font-size:15px}
+td.num{font-variant-numeric:tabular-nums;font-weight:800;white-space:nowrap}
+tr.marca-fila td{background:var(--dorado-claro)}
+
+/* Fórmula NSP */
+.nsp{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.nsp div{background:var(--papel);border:1.5px solid var(--linea);border-radius:16px;padding:14px;text-align:center}
+.nsp b{display:block;font-family:var(--f-display);font-size:30px;color:var(--turquesa);line-height:1}
+.nsp span{font-weight:800}
+.nsp small{display:block;color:var(--navy-suave);font-size:13px;margin-top:4px}
+@media (max-width:560px){.nsp{grid-template-columns:1fr}}
+
+/* Feynman */
+.medidor{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;font-weight:700;font-size:14px}
+.medidor span{background:var(--crema);border-radius:99px;padding:4px 12px;border:1.5px solid var(--linea)}
+.medidor span.bien{background:var(--verde-claro);border-color:#BFE0CB;color:var(--verde)}
+.medidor span.ojo{background:var(--ambar-claro);border-color:#EED4A0;color:var(--dorado-hondo)}
+
+/* Mapa 1 hoja */
+.hoja{background:var(--papel);border-radius:22px;padding:22px;border:2px solid var(--navy);box-shadow:8px 8px 0 var(--turquesa)}
+.hoja-tit{font-family:var(--f-display);font-weight:800;font-size:22px;line-height:1.2;border-bottom:2px dashed var(--linea);padding-bottom:12px}
+.hoja-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.hoja-grid div{background:var(--crema);border-radius:14px;padding:12px;min-width:0}
+.hoja-grid div.ancho{grid-column:1/-1}
+.hoja-grid h5{margin:0;font-family:var(--f-display);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--turquesa-hondo)}
+.hoja-grid p{font-size:15px;margin-top:4px;overflow-wrap:anywhere}
+.hoja-grid p.vacio{color:#A39A86;font-style:italic}
+@media (max-width:560px){.hoja-grid{grid-template-columns:1fr}}
+
+/* Selector días */
+.dias{display:flex;flex-wrap:wrap;gap:10px}
+.dia-btn{border:2px solid var(--linea);background:var(--papel);border-radius:16px;padding:10px 18px;font-family:var(--f-display);font-weight:800;font-size:18px;color:var(--navy)}
+.dia-btn small{display:block;font-family:var(--f-body);font-size:12px;font-weight:700;color:var(--navy-suave)}
+.dia-btn.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+.dia-btn.sel small{color:#C9D6E3}
+.plan{display:grid;gap:10px;margin-top:16px}
+.plan-dia{display:grid;grid-template-columns:96px 1fr;gap:12px;background:var(--papel);border:1.5px solid var(--linea);border-radius:16px;padding:12px 14px}
+.plan-dia .cuando{font-family:var(--f-display);font-weight:800;color:var(--turquesa-hondo);line-height:1.2}
+.plan-dia ul{margin:0;padding-left:18px}
+.plan-dia li.siempre{color:var(--dorado-hondo);font-weight:800}
+.plan-dia>div{min-width:0}
+@media (max-width:480px){.plan-dia{grid-template-columns:1fr;gap:4px}}
+
+/* Simulacro */
+.sim-card{background:var(--papel);border:2px solid var(--navy);border-radius:22px;padding:22px;min-height:240px;display:flex;flex-direction:column}
+.sim-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:800;font-size:14px;color:var(--navy-suave)}
+.sim-q{font-family:var(--f-display);font-weight:700;font-size:clamp(22px,4vw,28px);margin-top:12px;line-height:1.2}
+.sim-q::before{content:"El jurado pregunta:";display:block;font-family:var(--f-mano);font-size:24px;color:var(--turquesa-hondo);font-weight:700}
+.sim-acc{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:18px}
+.semaforo{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.semaforo button{border:2px solid var(--linea);background:var(--papel);border-radius:99px;padding:8px 14px;font-weight:800;font-size:14px;color:var(--navy)}
+.semaforo button.v.sel{background:var(--verde);border-color:var(--verde);color:#fff}
+.semaforo button.a.sel{background:var(--ambar);border-color:var(--ambar);color:#fff}
+.semaforo button.r.sel{background:var(--rojo-suave);border-color:var(--rojo-suave);color:#fff}
+.puntos{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.puntos i{width:14px;height:14px;border-radius:50%;background:var(--linea)}
+.puntos i.v{background:var(--verde)}.puntos i.a{background:var(--ambar)}.puntos i.r{background:var(--rojo-suave)}
+.puntos i.act{outline:2px solid var(--navy);outline-offset:2px}
+
+/* Checklist */
+.check{display:flex;gap:12px;align-items:flex-start;background:var(--papel);border:1.5px solid var(--linea);border-radius:14px;padding:12px 14px;cursor:pointer;font-weight:700}
+.check+.check{margin-top:8px}
+.check input{width:22px;height:22px;accent-color:var(--turquesa);flex:none;margin-top:2px}
+.check.ok{background:var(--verde-claro);border-color:#BFE0CB}
+
+/* Cierre / productos */
+.oferta{background:var(--navy);color:#fff;border-radius:26px;padding:26px;margin-top:28px;position:relative;overflow:hidden}
+.oferta::after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:var(--turquesa);opacity:.25;right:-90px;top:-90px}
+.oferta>*{position:relative;z-index:1}
+.oferta h3{color:#fff;font-size:clamp(24px,4.5vw,32px)}
+.oferta p{color:#DCE6F0;margin-top:8px;max-width:60ch}
+.prods{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.prod{background:#fff;color:var(--navy);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.prod h4{font-size:19px}
+.prod p{color:var(--navy-suave);font-size:15px;margin:0}
+.prod .chip{align-self:flex-start}
+@media (max-width:600px){.prods{grid-template-columns:1fr}}
+
+/* Nav inferior */
+.nav-mod{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-top:30px;padding-top:20px;border-top:2px dashed var(--linea)}
+.nav-mod .der{display:flex;flex-wrap:wrap;gap:10px}
+
+/* Índice overlay */
+.indice{position:fixed;inset:0;z-index:40;background:rgba(22,50,79,.45);display:flex;justify-content:flex-end}
+.indice-panel{background:var(--crema);width:min(420px,100%);height:100%;overflow-y:auto;padding:calc(18px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) 18px}
+.indice-panel h3{font-size:22px;display:flex;justify-content:space-between;align-items:center}
+.indice-panel .mods{grid-template-columns:1fr}
+.cerrar{border:0;background:var(--papel);border-radius:99px;width:38px;height:38px;font-size:22px;color:var(--navy)}
+
+.pie{padding-block:24px 36px;text-align:center;color:var(--navy-suave);font-size:14px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:99px;padding:10px 18px;font-weight:800;z-index:50;font-size:14px}
+.fade{animation:entra .35s ease}
+@keyframes entra{from{opacity:.4;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="top">
+  <div class="wrap top-in">
+    <button class="marca" id="ir-inicio" aria-label="Ir a la portada">
+      <span class="marca-sello">S</span>
+      <span class="marca-txt"><b>Estudia y entiende tu tesis</b><small>Sandra · Sustentación Exitosa</small></span>
+    </button>
+    <div class="top-prog">
+      <div class="barra" aria-hidden="true"><i id="barra"></i></div>
+      <span class="pct" id="pct">0%</span>
+      <button class="btn-indice" id="abrir-indice">Índice</button>
+    </div>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<div class="indice" id="indice" hidden>
+  <div class="indice-panel">
+    <h3>Tu ruta de estudio <button class="cerrar" id="cerrar-indice" aria-label="Cerrar índice">×</button></h3>
+    <div id="indice-lista" style="margin-top:14px"></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+/* ---------- Estado ---------- */
+var KEY="estudia_tesis_v1";
+var estado={hechos:{},matriz:{},feyn:"",quiz:{},sim:{},check:{},dias:7};
+try{var g=localStorage.getItem(KEY);if(g){var p=JSON.parse(g);for(var k in p)estado[k]=p[k];}}catch(e){}
+function guardar(){try{localStorage.setItem(KEY,JSON.stringify(estado));}catch(e){}}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function $(id){return document.getElementById(id);}
+function toast(t){var el=$("toast");el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(function(){el.hidden=true;},2200);}
+
+/* ---------- Ejemplo base (tesis general) ---------- */
+var EJ={
+  titulo:"Uso de redes sociales y rendimiento académico en estudiantes de una universidad privada de Lima, 2025",
+  problema:"¿Cuál es la relación entre el uso de redes sociales y el rendimiento académico en estudiantes de una universidad privada de Lima, 2025?",
+  objetivo:"Determinar la relación entre el uso de redes sociales y el rendimiento académico en estudiantes de una universidad privada de Lima, 2025.",
+  hipotesis:"Existe una relación significativa e inversa entre el uso de redes sociales y el rendimiento académico.",
+  variables:"V1: Uso de redes sociales (tiempo de uso, frecuencia, finalidad). V2: Rendimiento académico (promedio ponderado del ciclo).",
+  metodo:"Enfoque cuantitativo, tipo básica, nivel correlacional, diseño no experimental de corte transversal. Muestra de 208 estudiantes elegidos por muestreo aleatorio simple. Encuesta con cuestionario.",
+  resultado:"Rho de Spearman = −0,58 con p = 0,000 (menor a 0,05): relación inversa y moderada.",
+  conclusion:"Se concluye que, a mayor uso de redes sociales, menor rendimiento académico en los estudiantes evaluados."
+};
+var CAMPOS=[
+  ["titulo","Título","¿Qué investigaste, en quiénes, dónde y cuándo?"],
+  ["problema","Problema","La pregunta que tu tesis responde."],
+  ["objetivo","Objetivo general","Lo que te propusiste lograr. Debe responder al problema."],
+  ["hipotesis","Hipótesis","Tu respuesta tentativa. Si tu tesis no la tiene, escribe por qué."],
+  ["variables","Variables o categorías","Qué estudiaste y cómo lo mediste."],
+  ["metodo","Metodología en una línea","Enfoque, tipo, nivel, diseño, muestra, técnica."],
+  ["resultado","Resultado principal","El número clave y qué significa."],
+  ["conclusion","Conclusión general","La respuesta final a tu problema."]
+];
+
+/* ---------- Módulos ---------- */
+var FASES=[
+  {n:1,t:"Entender",d:"Antes de leer, ubica tu tesis completa en tu cabeza."},
+  {n:2,t:"Explicar",d:"Si no lo puedes decir con tus palabras, todavía no lo entiendes."},
+  {n:3,t:"Dominar",d:"Tus decisiones y tus números, sin miedo."},
+  {n:4,t:"Practicar",d:"Lo que practicas en voz alta es lo que sale el día de tu sustentación."}
+];
+var MODS=[
+  {id:"diagnostico",f:1,t:"Diagnóstico: ¿cómo estás estudiando?",s:"6 preguntas, 2 minutos"},
+  {id:"lecturas",f:1,t:"Las 3 lecturas de tu tesis",s:"Deja de leer de corrido"},
+  {id:"hilo",f:1,t:"Tu hilo conductor",s:"Herramienta para completar"},
+  {id:"simple",f:2,t:"Explícalo simple",s:"Con medidor de palabras técnicas"},
+  {id:"cinco",f:2,t:"Las 5 preguntas por capítulo",s:"Tu guía de estudio por partes"},
+  {id:"decisiones",f:3,t:"Defiende tus decisiones",s:"Enfoque, diseño, muestra, instrumento"},
+  {id:"numeros",f:3,t:"Domina tus resultados",s:"La fórmula N·S·P"},
+  {id:"hoja",f:3,t:"Tu tesis en una hoja",s:"Se arma sola con tus respuestas"},
+  {id:"cerebro",f:4,t:"Estudia con tu cerebro a favor",s:"5 técnicas que sí funcionan"},
+  {id:"plan",f:4,t:"Tu plan según los días que te quedan",s:"3, 7, 15 o 30 días"},
+  {id:"simulacro",f:4,t:"Mini simulacro con el jurado",s:"10 preguntas con respuesta modelo"},
+  {id:"listo",f:4,t:"¿Estoy listo para sustentar?",s:"Checklist final"}
+];
+
+/* ---------- Progreso ---------- */
+function progreso(){
+  var h=MODS.filter(function(m){return estado.hechos[m.id];}).length;
+  var pc=Math.round(h/MODS.length*100);
+  $("barra").style.width=pc+"%";$("pct").textContent=pc+"%";
+}
+function tarjetaMod(m,i){
+  var ok=estado.hechos[m.id];
+  return '<button class="mod-card'+(ok?' ok':'')+'" data-ir="'+m.id+'"><span class="n">'+(ok?'✓':(i+1))+'</span><span>'+esc(m.t)+'<small>'+esc(m.s)+'</small></span></button>';
+}
+function listaFases(){
+  return FASES.map(function(f){
+    var ms=MODS.map(function(m,i){return m.f===f.n?tarjetaMod(m,i):"";}).join("");
+    return '<section class="fase"><div class="fase-head"><span class="fase-num">Fase '+f.n+'</span><h3>'+f.t+'</h3><p>'+f.d+'</p></div><div class="mods">'+ms+'</div></section>';
+  }).join("");
+}
+
+/* ---------- Portada ---------- */
+function portada(){
+  var empezar=MODS.find(function(m){return !estado.hechos[m.id];})||MODS[0];
+  return '<section class="hero"><span class="blob b1"></span><span class="blob b2"></span><div class="wrap">'+
+  '<span class="pill">Guía interactiva · Método SESE®</span>'+
+  '<h1>Cómo estudiar y <em>entender</em> tu tesis para tu sustentación</h1>'+
+  '<p class="sub">Una ruta paso a paso para que dejes de leer tu tesis de corrido y empieces a comprenderla: herramientas para completar, ejemplos reales y práctica con preguntas del jurado.</p>'+
+  '<div class="hero-cta"><button class="btn btn-pri" data-ir="'+empezar.id+'">'+(Object.keys(estado.hechos).length?'Continuar mi ruta':'Empezar mi ruta')+'</button><span class="mano">comprende, no memorices</span></div>'+
+  '<div class="tepasa"><div><span>1</span>Abres tu tesis, empiezas a leer desde la página 1… y en el capítulo 2 ya te perdiste.</div><div><span>2</span>Subrayas todo, pero al día siguiente no recuerdas qué decía.</div><div><span>3</span>Sabes tu título, pero si te preguntan "¿por qué ese diseño?", te quedas en blanco.</div></div>'+
+  '</div></section>'+
+  '<section class="seccion"><div class="wrap"><h2>Tu ruta de estudio</h2><p class="lead">Aquí tienes 12 herramientas en 4 fases. La primera vez, ve en orden, paso a paso, para que todo tenga sentido. Después, regresa a la que más necesites, las veces que quieras.</p><div class="fases">'+listaFases()+'</div></div></section>';
+}
+
+/* ---------- Contenido de módulos ---------- */
+var C={};
+
+C.diagnostico=function(){
+  var Q=[
+    ["Cuando te sientas a estudiar tu tesis, ¿qué haces primero?",["La abro y leo desde la página 1","Leo el resumen y las conclusiones","Armo mi hilo: problema, objetivo, resultado y conclusión"]],
+    ["Si alguien te pide explicar tu tesis en 1 minuto…",["Me trabo, no sé por dónde empezar","Digo el título y poco más","La explico con mis palabras y con un ejemplo"]],
+    ["¿Sabes por qué tu investigación tiene ese diseño?",["No, así me lo indicaron","Más o menos","Sí, y puedo justificarlo"]],
+    ["Sobre tu resultado principal…",["No recuerdo el número","Recuerdo el número, pero no qué significa","Sé el número, qué significa y para qué sirve"]],
+    ["¿Cómo practicas?",["Leo y subrayo","Hago resúmenes","Me pregunto, respondo en voz alta y me grabo"]],
+    ["¿Cómo te sientes hoy con tu sustentación?",["Abrumado, no sé por dónde empezar","Avanzo, pero desordenado","Tengo un plan y lo sigo"]]
+  ];
+  var h='<div class="bloque">';
+  Q.forEach(function(q,i){
+    h+='<div class="q"><h4>'+(i+1)+'. '+q[0]+'</h4><div class="opts">';
+    q[1].forEach(function(o,j){h+='<button class="opt'+(estado.quiz[i]===j?' sel':'')+'" data-q="'+i+'" data-o="'+j+'">'+o+'</button>';});
+    h+='</div></div>';
+  });
+  h+='<div id="quiz-res"></div></div>';
+  return {intro:"Antes de darte herramientas, mira desde dónde partes. Responde con sinceridad: nadie más lo ve.",html:h,
+    tip:"La mayoría de tesistas que acompaño empieza en “modo lectura”. No es falta de capacidad: es que nadie les enseñó a estudiar una tesis.",
+    init:function(){
+      function pinta(){
+        var r=Object.keys(estado.quiz).length,box=$("quiz-res");
+        if(r<Q.length){box.innerHTML='<p class="alerta">Te faltan <b>'+(Q.length-r)+'</b> respuestas para ver tu resultado.</p>';return;}
+        var s=0;for(var k in estado.quiz)s+=estado.quiz[k];
+        var R=s<=4?["Modo lectura","Estás leyendo, pero todavía no estás estudiando. Leer de corrido cansa y se olvida rápido. Tu prioridad: las 3 lecturas y tu hilo conductor (herramientas 2 y 3)."]:
+              s<=8?["Modo resumen","Ya tienes una base, pero falta conectar las partes y practicar en voz alta. Tu prioridad: explicarlo simple, defender tus decisiones y dominar tus números."]:
+                   ["Modo comprensión","¡Vas muy bien! Ahora toca entrenar bajo presión. Tu prioridad: el plan por días y el simulacro con preguntas del jurado."];
+        box.innerHTML='<div class="resultado fade"><span class="pill">Tu resultado · '+s+'/12</span><h3>'+R[0]+'</h3><p>'+R[1]+'</p></div>';
+      }
+      document.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){
+        estado.quiz[b.dataset.q]=+b.dataset.o;guardar();
+        document.querySelectorAll('.opt[data-q="'+b.dataset.q+'"]').forEach(function(x){x.classList.toggle("sel",x===b);});
+        pinta();
+      };});
+      pinta();
+    }};
+};
+
+C.lecturas=function(){
+  return {intro:"El error más común es abrir la tesis y leerla como una novela. Una tesis se estudia de afuera hacia adentro: primero el mapa, luego las calles.",
+  html:'<div class="bloque pasos">'+
+  '<div class="paso"><span class="num">1</span><div><h4>Lectura de águila</h4><span class="meta">30 a 40 minutos · 1 sola vez</span><p>Lee solo esto, en este orden:</p><ul><li>Título y resumen</li><li>Problema y objetivo general</li><li>Conclusiones</li></ul><p>Al terminar, cierra la tesis y responde en voz alta: <b>¿qué pregunté y qué encontré?</b> Si puedes, ya tienes el esqueleto.</p></div></div>'+
+  '<div class="paso"><span class="num">2</span><div><h4>Lectura de estructura</h4><span class="meta">1 hora</span><p>Revisa el índice y los títulos de cada capítulo. Anota en una línea para qué sirve cada capítulo. Ejemplo: “Capítulo III: explica cómo obtuve los datos”.</p><p>Aquí también ubicas tus objetivos específicos y compruebas que cada uno tiene su resultado y su conclusión.</p></div></div>'+
+  '<div class="paso"><span class="num">3</span><div><h4>Lectura profunda por bloques</h4><span class="meta">1 capítulo por sesión</span><p>Ahora sí, lee a detalle, pero <b>un bloque a la vez</b> y con las 5 preguntas por capítulo (herramienta 5). Termina cada bloque explicándolo sin mirar.</p><ul><li>Orden recomendado: introducción y problema → metodología → resultados → discusión → marco teórico.</li></ul></div></div>'+
+  '</div>'+
+  '<div class="alerta"><b>¿Por qué el marco teórico va al final?</b> Porque es la parte más larga y la que menos preguntas genera por sí sola. El jurado pregunta más por tu problema, tu metodología, tus resultados y tus conclusiones. Igual estúdialo: debes conocer tus autores principales y la teoría que sostiene tus variables.</div>',
+  tip:"Si en la lectura de águila no puedes responder “¿qué pregunté y qué encontré?”, no avances. Todo lo demás se cuelga de esa respuesta."};
+};
+
+C.hilo=function(){
+  var h='<div class="bloque"><div class="hilo">';
+  CAMPOS.forEach(function(c,i){
+    var v=estado.matriz[c[0]]||"";
+    h+='<div class="eslabon'+(v.trim()?' lleno':'')+'" id="esl-'+c[0]+'"><span class="nodo">'+(i+1)+'</span><div class="campo"><label for="m-'+c[0]+'">'+c[1]+'</label><p class="ayuda">'+c[2]+'</p><textarea id="m-'+c[0]+'" rows="2" data-m="'+c[0]+'" placeholder="Escríbelo con tus palabras">'+esc(v)+'</textarea></div></div>';
+  });
+  h+='</div><div class="fila-btn"><button class="btn btn-sec" id="ver-ej">Ver ejemplo completo</button><button class="btn btn-sec" id="copiar-hilo">Copiar mi hilo</button></div><div id="ej-box"></div></div>'+
+  '<div class="alerta"><b>Prueba de coherencia:</b> lee en voz alta solo el problema, luego el objetivo y luego la conclusión. Deben sonar como pregunta, propósito y respuesta de lo mismo. Si tu conclusión responde otra cosa, ahí está el hueco que el jurado puede notar.</div>';
+  return {intro:"Tu tesis no son 100 páginas sueltas: es una sola historia. Este hilo une cada parte con la siguiente. Complétalo y tendrás la columna vertebral de tu sustentación.",html:h,
+  tip:"Si llenas este hilo sin mirar la tesis, ya entiendes más de lo que crees. Si necesitas mirar en cada casilla, vuelve aquí cada día hasta que salga solo.",
+  init:function(){
+    document.querySelectorAll("[data-m]").forEach(function(t){t.oninput=function(){
+      estado.matriz[t.dataset.m]=t.value;guardar();
+      $("esl-"+t.dataset.m).classList.toggle("lleno",!!t.value.trim());
+    };});
+    $("ver-ej").onclick=function(){
+      var b=$("ej-box");if(b.innerHTML){b.innerHTML="";this.textContent="Ver ejemplo completo";return;}
+      this.textContent="Ocultar ejemplo";
+      b.innerHTML='<div class="caja fade" style="margin-top:14px"><p class="eyebrow">Ejemplo de tesis correlacional</p>'+CAMPOS.map(function(c){return '<p style="margin-top:8px"><b>'+c[1]+':</b> '+EJ[c[0]]+'</p>';}).join("")+'</div>';
+    };
+    $("copiar-hilo").onclick=function(){
+      var txt=CAMPOS.map(function(c){return c[1]+": "+(estado.matriz[c[0]]||"—");}).join("\n");
+      copiar(txt);
+    };
+  }};
+};
+
+var TECNICAS=["correlacional","correlación","variable","variables","transversal","significancia","significativa","significativo","instrumento","población","muestra","muestreo","hipótesis","metodología","coeficiente","enfoque","cuantitativo","cualitativo","dimensiones","indicadores","operacionalización","no experimental","diseño","confiabilidad","validez","spearman","pearson","cronbach","aiken","estadístico","inferencial","descriptivo"];
+C.simple=function(){
+  var v=estado.feyn||"";
+  return {intro:"Es la técnica Feynman: si puedes explicar tu tesis a alguien que no estudió tu carrera, la entiendes de verdad. Y si la entiendes, ninguna pregunta te deja en blanco.",
+  html:'<div class="bloque"><h3>Reto: tu tesis en 60 palabras, sin tecnicismos</h3><p class="ayuda" style="color:var(--navy-suave)">Imagina que se lo cuentas a tu mamá o a un amigo de otra carrera. Responde: qué investigaste, por qué importa, cómo lo hiciste y qué encontraste.</p>'+
+  '<textarea id="feyn" rows="5" style="margin-top:10px" placeholder="Investigué si…">'+esc(v)+'</textarea>'+
+  '<div class="medidor" id="medidor"></div>'+
+  '<details style="margin-top:14px"><summary>Ver un ejemplo</summary><div class="cuerpo"><p>“Quise saber si pasar mucho tiempo en redes sociales afecta las notas de los universitarios. Encuesté a 208 estudiantes y comparé sus horas en redes con su promedio. Encontré que quienes más usan redes suelen tener notas más bajas. Esto ayuda a la universidad a orientar mejor a sus alumnos.”</p><p class="busca">55 palabras. Cero tecnicismos. Ya sabe qué hizo, cómo y para qué.</p></div></details></div>'+
+  '<div class="bloque"><h3>Después, sube de nivel</h3><div class="pasos">'+
+  '<div class="paso"><span class="num">1</span><div><h4>Versión simple</h4><p>La de arriba. Es tu base.</p></div></div>'+
+  '<div class="paso"><span class="num">2</span><div><h4>Versión académica</h4><p>La misma idea, ahora con tus términos: “Es una investigación cuantitativa, de nivel correlacional…”. Cada término técnico que uses, debes poder explicarlo.</p></div></div>'+
+  '<div class="paso"><span class="num">3</span><div><h4>Versión pitch de 1 minuto</h4><p>Problema, cómo lo investigaste, hallazgo principal y aporte. Es la que usarás para abrir tu presentación.</p></div></div></div></div>',
+  tip:"Las palabras técnicas no son malas. El problema es usarlas sin poder explicarlas. Ese es justo el momento en que el jurado repregunta.",
+  init:function(){
+    var t=$("feyn");
+    function medir(){
+      estado.feyn=t.value;guardar();
+      var txt=t.value.toLowerCase(),pal=txt.trim()?txt.trim().split(/\s+/).length:0;
+      var enc=TECNICAS.filter(function(w){return txt.indexOf(w)>-1;});
+      var html='<span class="'+(pal&&pal<=60?'bien':pal>60?'ojo':'')+'">'+pal+' / 60 palabras</span>';
+      html+='<span class="'+(pal?(enc.length?'ojo':'bien'):'')+'">'+(enc.length?'Términos técnicos: '+enc.slice(0,5).join(", "):'Sin términos técnicos')+'</span>';
+      if(pal>60)html+='<span class="ojo">Recorta: quédate con lo esencial</span>';
+      $("medidor").innerHTML=html;
+    }
+    t.oninput=medir;medir();
+  }};
+};
+
+C.cinco=function(){
+  var caps=[
+    ["Introducción y problema","Investigué la relación entre el uso de redes sociales y el rendimiento académico.","Porque cada vez más estudiantes pasan horas en redes y la universidad reporta bajas en el promedio.","Formulé un problema, un objetivo general y tres específicos.","Que sí era necesario estudiarlo: no había estudios recientes en universidades privadas de Lima.","Para que la universidad tome decisiones de orientación y tutoría."],
+    ["Marco teórico","Revisé estudios previos y las teorías que explican cada variable.","Para sostener mi investigación en lo que ya se sabe.","Organicé antecedentes, bases teóricas y definición de términos.","Que varios autores ya relacionaban el tiempo en pantallas con menor concentración.","Para comparar mis resultados en la discusión."],
+    ["Metodología","Definí cómo iba a obtener y analizar los datos.","Porque quería medir la relación entre dos variables sin manipularlas.","Enfoque cuantitativo, nivel correlacional, diseño no experimental transversal, 208 estudiantes, cuestionario validado.","Un instrumento válido (V de Aiken 0,92) y confiable (Alfa de Cronbach 0,87).","Para que mis resultados sean confiables y se puedan replicar."],
+    ["Resultados","Analicé los datos de los 208 estudiantes.","Para responder mi problema y contrastar mi hipótesis.","Prueba de normalidad y luego Rho de Spearman.","Una relación inversa y moderada (Rho = −0,58; p = 0,000).","Para aceptar mi hipótesis y llegar a mis conclusiones."],
+    ["Discusión, conclusiones y recomendaciones","Comparé mis hallazgos con otros autores y respondí mis objetivos.","Para darle sentido a los números.","Contrasté cada resultado con mis antecedentes.","Que mis resultados coinciden con varios estudios y aportan datos del contexto peruano.","Para recomendar acciones concretas a la universidad y a futuros investigadores."]
+  ];
+  var Qs=["¿Qué hice aquí?","¿Por qué lo hice?","¿Cómo lo hice?","¿Qué encontré o concluí?","¿Para qué sirve?"];
+  var h='<div class="bloque"><div class="caja"><p style="font-weight:800">Las 5 preguntas que debes responder de cada capítulo:</p><p style="margin-top:8px">'+Qs.map(function(q){return '<span class="chip">'+q+'</span>';}).join("")+'</p></div></div><div class="bloque"><h3>Ejemplo capítulo por capítulo</h3>';
+  caps.forEach(function(c){
+    h+='<details><summary>'+c[0]+'</summary><div class="cuerpo">'+Qs.map(function(q,i){return '<p style="margin-top:8px"><b style="color:var(--turquesa-hondo)">'+q+'</b> '+c[i+1]+'</p>';}).join("")+'</div></details>';
+  });
+  h+='</div>';
+  return {intro:"Cuando leas cada capítulo en profundidad, no subrayes todo. Busca solo las respuestas a estas 5 preguntas. Eso es lo que necesitas para explicarlo y defenderlo.",html:h,
+  tip:"Escribe tus 5 respuestas de cada capítulo en una tarjeta o en tu celular. Esas tarjetas valen más que releer la tesis completa tres veces."};
+};
+
+C.decisiones=function(){
+  var D=[
+    ["¿Por qué tu enfoque es cuantitativo?","Que sepas que el enfoque nace de tu problema, no de una preferencia.","Elegí el enfoque cuantitativo porque mi problema buscaba medir la relación entre dos variables con datos numéricos y analizarlos estadísticamente."],
+    ["¿Por qué tu investigación es de tipo básica?","Que distingas tipo (básica o aplicada) de nivel (descriptivo, correlacional, explicativo).","Es de tipo básica porque busca ampliar el conocimiento sobre la relación entre redes sociales y rendimiento académico, sin aplicar una intervención para modificar la realidad."],
+    ["¿Por qué tu diseño es no experimental?","Que entiendas que no manipulaste variables.","Es no experimental porque no manipulé ninguna variable: observé el uso de redes y el rendimiento tal como se daban. Y es transversal porque recogí los datos en un solo momento, durante el ciclo 2025-I."],
+    ["¿Cómo determinaste tu muestra?","Que sepas de dónde sale tu número y si buscas representatividad.","Mi población fue de 450 estudiantes. Apliqué la fórmula para poblaciones finitas con 95 % de confianza y 5 % de margen de error, y obtuve 208 estudiantes. Usé muestreo aleatorio simple, por eso todos tuvieron la misma probabilidad de ser elegidos."],
+    ["¿Cómo validaste tu instrumento?","Que no confundas validez con confiabilidad.","La validez la obtuve por juicio de tres expertos, que evaluaron la pertinencia, relevancia y claridad de cada ítem. Calculé la V de Aiken y obtuve 0,92, lo que indica una validez alta."],
+    ["¿Y la confiabilidad?","Que sepas que el Alfa de Cronbach mide consistencia, no validez.","Para la confiabilidad apliqué una prueba piloto a 20 estudiantes con características similares a la muestra y calculé el Alfa de Cronbach: obtuve 0,87, lo que indica que el cuestionario mide de forma consistente."],
+    ["¿Por qué usaste Rho de Spearman?","Que la prueba estadística depende de tus datos, no del gusto.","Primero apliqué la prueba de normalidad de Kolmogorov-Smirnov, porque mi muestra era mayor a 50. Los datos no tenían distribución normal, por eso usé una prueba no paramétrica: el Rho de Spearman."]
+  ];
+  var h='<div class="bloque">';
+  D.forEach(function(d){h+='<details><summary>'+d[0]+'</summary><div class="cuerpo"><p class="busca"><b>Qué busca el jurado:</b> '+d[1]+'</p><p class="respuesta">'+d[2]+'</p></div></details>';});
+  h+='</div><div class="alerta"><b>Adáptalo a tu tesis:</b> si tu investigación es aplicada, experimental o cualitativa, la lógica es la misma: di <b>qué elegiste</b> y <b>por qué tu problema lo pedía</b>. Si tu muestra es no probabilística, no digas que es representativa: explica el criterio con el que elegiste a tus participantes.</div>';
+  return {intro:"El jurado no solo pregunta qué hiciste: pregunta por qué lo hiciste así. Cada decisión metodológica tiene una razón. Aquí tienes las más preguntadas, con una respuesta modelo sobre la tesis de ejemplo.",html:h,
+  tip:"Nunca respondas “porque así me dijo mi asesor”. Aunque sea verdad, la tesis la defiendes tú. Busca la razón técnica y hazla tuya."};
+};
+
+C.numeros=function(){
+  var esc_=[["0,01 a 0,19","Muy baja"],["0,20 a 0,39","Baja"],["0,40 a 0,59","Moderada"],["0,60 a 0,79","Alta"],["0,80 a 1,00","Muy alta"]];
+  return {intro:"Muchos tesistas recuerdan su número pero no saben explicarlo. Con esta fórmula, cada resultado se convierte en una respuesta clara.",
+  html:'<div class="bloque"><h3>La fórmula N · S · P</h3><div class="nsp"><div><b>N</b><span>Número</span><small>El dato exacto</small></div><div><b>S</b><span>Significado</span><small>Qué indica ese dato</small></div><div><b>P</b><span>Para qué sirve</span><small>Qué decisión permite</small></div></div>'+
+  '<p class="respuesta">Obtuve un Rho de Spearman de −0,58 con un p valor de 0,000, menor a 0,05 (N). Esto significa que existe una relación inversa y moderada: a mayor uso de redes sociales, menor rendimiento académico (S). Con este resultado acepto mi hipótesis, y la universidad puede usarlo para fortalecer sus tutorías sobre manejo del tiempo (P).</p></div>'+
+  '<div class="bloque"><h3>Cómo leer un coeficiente de correlación</h3><div class="tabla-wrap"><table><thead><tr><th>Valor (positivo o negativo)</th><th>Grado de relación</th></tr></thead><tbody>'+
+  esc_.map(function(r){return '<tr'+(r[1]==="Moderada"?' class="marca-fila"':'')+'><td class="num">'+r[0]+'</td><td>'+r[1]+(r[1]==="Moderada"?' ← nuestro ejemplo (0,58)':'')+'</td></tr>';}).join("")+
+  '</tbody></table></div><p class="busca" style="margin-top:8px">Es una escala de referencia común. Usa la que cita tu tesis y menciona a su autor.</p>'+
+  '<div class="caja" style="margin-top:12px"><p><b>El signo:</b> positivo (+) = ambas variables suben juntas. Negativo (−) = cuando una sube, la otra baja.</p><p style="margin-top:6px"><b>El p valor:</b> si es menor a 0,05, la relación es estadísticamente significativa y aceptas tu hipótesis de investigación.</p></div></div>'+
+  '<div class="bloque"><h3>Ponte a prueba</h3><div class="q"><h4>Un coeficiente de 0,72 con p = 0,001 indica…</h4><div class="opts" id="mini"><button class="opt" data-ok="0">Relación inversa y alta, no significativa</button><button class="opt" data-ok="1">Relación directa y alta, significativa</button><button class="opt" data-ok="0">Relación directa y moderada, no significativa</button></div><p id="mini-res" style="margin-top:10px;font-weight:800"></p></div></div>',
+  tip:"Haz tu propia tabla N·S·P para cada objetivo específico. Si tienes 3 objetivos, son 3 respuestas listas para el jurado.",
+  init:function(){document.querySelectorAll("#mini .opt").forEach(function(b){b.onclick=function(){
+    document.querySelectorAll("#mini .opt").forEach(function(x){x.classList.remove("sel");});b.classList.add("sel");
+    $("mini-res").textContent=b.dataset.ok==="1"?"¡Correcto! Signo positivo = directa; 0,72 = alta; p < 0,05 = significativa.":"Revisa: el signo es positivo (directa), 0,72 está en el rango alto y p es menor a 0,05.";
+    $("mini-res").style.color=b.dataset.ok==="1"?"var(--verde)":"var(--dorado-hondo)";
+  };});}};
+};
+
+C.hoja=function(){
+  var lleno=CAMPOS.filter(function(c){return (estado.matriz[c[0]]||"").trim();}).length;
+  function v(k){var x=(estado.matriz[k]||"").trim();return x?'<p>'+esc(x)+'</p>':'<p class="vacio">Complétalo en “Tu hilo conductor”</p>';}
+  var h='<div class="bloque"><div class="hoja"><div class="hoja-tit">'+((estado.matriz.titulo||"").trim()?esc(estado.matriz.titulo):'Mi tesis en una hoja')+'</div><div class="hoja-grid">'+
+    '<div class="ancho"><h5>Problema</h5>'+v("problema")+'</div>'+
+    '<div><h5>Objetivo general</h5>'+v("objetivo")+'</div>'+
+    '<div><h5>Hipótesis</h5>'+v("hipotesis")+'</div>'+
+    '<div><h5>Variables</h5>'+v("variables")+'</div>'+
+    '<div><h5>Metodología</h5>'+v("metodo")+'</div>'+
+    '<div class="ancho"><h5>Resultado principal</h5>'+v("resultado")+'</div>'+
+    '<div class="ancho"><h5>Conclusión general</h5>'+v("conclusion")+'</div>'+
+    '</div></div>'+
+    (lleno<CAMPOS.length?'<p class="alerta">Llevas <b>'+lleno+' de '+CAMPOS.length+'</b> partes. <button class="btn btn-sec" style="margin-left:6px;padding:6px 14px;font-size:14px" data-ir="hilo">Completar mi hilo</button></p>':'<p class="alerta"><b>¡Tu hoja está completa!</b> Tómale captura y ponla de fondo de pantalla de tu celular hasta el día de tu sustentación.</p>')+
+    '</div><div class="bloque"><h3>Cómo usar tu hoja</h3><div class="pasos">'+
+    '<div class="paso"><span class="num">1</span><div><h4>Cada mañana</h4><p>Léela una vez en voz alta. Dos minutos.</p></div></div>'+
+    '<div class="paso"><span class="num">2</span><div><h4>Antes de dormir</h4><p>Intenta reconstruirla de memoria en un papel. Compara y corrige.</p></div></div>'+
+    '<div class="paso"><span class="num">3</span><div><h4>El día de la sustentación</h4><p>Repásala antes de entrar. Es tu brújula: cualquier pregunta se responde desde aquí.</p></div></div></div></div>';
+  return {intro:"Tus respuestas del hilo conductor se ordenan solas en un mapa de una sola página. Es lo último que debes revisar antes de entrar a sustentar.",html:h,
+  tip:"Cuando una pregunta del jurado te desconcierte, vuelve mentalmente a esta hoja: ¿con qué parte se conecta la pregunta? Desde ahí respondes."};
+};
+
+C.cerebro=function(){
+  var T=[
+    ["Recuperación activa","Cierra la tesis y pregúntate. Recordar sin mirar fija más que releer.","Después de cada bloque, escribe en 3 líneas lo que acabas de estudiar, sin ver."],
+    ["Repaso espaciado","Repasa lo mismo en días distintos: hoy, mañana, en 3 días y en una semana.","Usa tu hoja de una página y tus tarjetas de las 5 preguntas."],
+    ["Voz alta y grabación","La sustentación es oral. Si solo estudias en silencio, entrenas otra cosa.","Grábate respondiendo 3 preguntas por día y escúchate: ¿se entiende? ¿te sobran muletillas?"],
+    ["Enseñar a otro","Explicarle tu tesis a alguien te muestra dónde te trabas.","Pide a un familiar que te haga preguntas de la lista del simulacro."],
+    ["Bloques cortos con pausa","El cansancio también hace que olvides. Estudia en bloques y descansa.","25 a 40 minutos de estudio, 5 a 10 de pausa. Cada 4 bloques, un descanso largo."]
+  ];
+  var h='<div class="bloque pasos">';
+  T.forEach(function(t,i){h+='<div class="paso"><span class="num">'+(i+1)+'</span><div><h4>'+t[0]+'</h4><p>'+t[1]+'</p><p><b style="color:var(--turquesa-hondo)">Hazlo así:</b> '+t[2]+'</p></div></div>';});
+  h+='</div><div class="bloque"><h3>Lo que te hace perder tiempo</h3><div class="caja"><p>• Releer la tesis completa varias veces.<br>• Subrayar todo con colores.<br>• Memorizar párrafos enteros palabra por palabra.<br>• Dejar la práctica de preguntas para el último día.</p></div></div>';
+  return {intro:"Estudiar más horas no es lo mismo que estudiar mejor. Estas técnicas tienen respaldo en la investigación sobre aprendizaje y se adaptan perfecto a tu tesis.",html:h,
+  tip:"Si memorizas, al primer cambio de pregunta te bloqueas. Si comprendes, puedes responder aunque el jurado te lo pregunte de otra forma."};
+};
+
+var PLANES={
+  3:[["Día 1",["Lectura de águila y de estructura","Completa tu hilo conductor","Explícalo simple (versión de 60 palabras)"]],["Día 2",["Defiende tus decisiones metodológicas","Domina tus resultados con N·S·P","Arma tu hoja de una página"]],["Día 3",["Ensaya tu presentación completa 2 veces, cronometrando","Repaso final de tu hoja","Duerme bien: también es preparación"]]],
+  7:[["Día 1",["Diagnóstico y lectura de águila","Lectura de estructura"]],["Día 2",["Tu hilo conductor completo","Explícalo simple"]],["Día 3",["Lectura profunda: introducción y metodología","5 preguntas por capítulo"]],["Día 4",["Lectura profunda: resultados y discusión","Fórmula N·S·P por objetivo"]],["Día 5",["Defiende tus decisiones","Repaso del marco teórico: autores y teorías clave"]],["Día 6",["Ensayo completo de tu presentación, grabándote","Corrige lo que no se entendió"]],["Día 7",["Ensayo final y repaso de tu hoja","Descansa la noche anterior"]]],
+  15:[["Días 1–2",["Diagnóstico, 3 lecturas e hilo conductor"]],["Días 3–5",["Lectura profunda capítulo por capítulo con las 5 preguntas"]],["Días 6–8",["Defiende tus decisiones y domina tus resultados"]],["Días 9–10",["Explícalo simple en sus 3 versiones","Arma tu hoja de una página"]],["Días 11–13",["Prepara tu presentación y ensáyala grabándote"]],["Días 14–15",["Simulacro con alguien que te pregunte","Repaso final y descanso"]]],
+  30:[["Semana 1",["Entender: 3 lecturas, hilo conductor y hoja de una página"]],["Semana 2",["Explicar: 5 preguntas por capítulo y explicación simple"]],["Semana 3",["Dominar: decisiones metodológicas, resultados y marco teórico"]],["Semana 4",["Practicar: presentación, grabaciones y simulacros completos","Últimos 2 días: solo repaso suave de tu hoja"]]]
+};
+C.plan=function(){
+  return {intro:"Elige cuántos días te quedan y te armo una ruta realista. Nota que hay algo que se repite todos los días.",
+  html:'<div class="bloque"><div class="dias" id="dias">'+[3,7,15,30].map(function(d){return '<button class="dia-btn'+(estado.dias===d?' sel':'')+'" data-d="'+d+'">'+d+' días<small>'+(d===3?'modo urgente':d===7?'una semana':d===15?'dos semanas':'un mes')+'</small></button>';}).join("")+'</div><div class="plan" id="plan"></div></div>',
+  tip:"La práctica de preguntas del jurado va todos los días, no solo al final. Así llegas con respuestas que ya salieron de tu boca muchas veces.",
+  init:function(){
+    function pinta(){
+      var P=PLANES[estado.dias];
+      $("plan").innerHTML=P.map(function(d){return '<div class="plan-dia fade"><span class="cuando">'+d[0]+'</span><div><ul>'+d[1].map(function(x){return '<li>'+x+'</li>';}).join("")+'<li class="siempre">Todos los días: responde en voz alta 3 a 5 preguntas del jurado</li></ul></div></div>';}).join("");
+    }
+    document.querySelectorAll(".dia-btn").forEach(function(b){b.onclick=function(){estado.dias=+b.dataset.d;guardar();document.querySelectorAll(".dia-btn").forEach(function(x){x.classList.toggle("sel",x===b);});pinta();};});
+    pinta();
+  }};
+};
+
+var SIM=[
+  ["¿Por qué eligió este tema?","Que tu investigación nació de un problema real.","Elegí este tema porque observé que muchos compañeros pasaban varias horas al día en redes sociales y, al mismo tiempo, la universidad reportaba una baja en los promedios. Quise comprobar si esas dos situaciones estaban relacionadas."],
+  ["¿Cuál es el aporte de su investigación?","Que sepas para qué sirve tu trabajo más allá de graduarte.","Mi investigación aporta evidencia del contexto peruano sobre esta relación. Además, la universidad puede usar estos resultados para fortalecer sus programas de tutoría y orientación sobre el manejo del tiempo."],
+  ["¿Por qué eligió ese diseño de investigación?","Coherencia entre problema y diseño.","Elegí un diseño no experimental transversal porque mi objetivo era determinar la relación entre las variables tal como se presentan, sin manipularlas, y recogí los datos en un solo momento."],
+  ["¿Cómo obtuvo su muestra?","Que conozcas tu población, tu fórmula y tu tipo de muestreo.","De una población de 450 estudiantes, apliqué la fórmula para poblaciones finitas con 95 % de confianza y 5 % de error, y obtuve 208 estudiantes, seleccionados por muestreo aleatorio simple."],
+  ["¿Cómo sabe que su instrumento mide lo que dice medir?","Validez, no confiabilidad.","Mi instrumento fue validado por juicio de tres expertos, quienes evaluaron cada ítem. Con sus calificaciones calculé la V de Aiken y obtuve 0,92, lo que indica una validez alta."],
+  ["¿Qué significa su coeficiente de correlación?","Número, significado y utilidad.","Obtuve un Rho de Spearman de −0,58 con p = 0,000. Significa que hay una relación inversa y moderada: a mayor uso de redes sociales, menor rendimiento académico, y esa relación es estadísticamente significativa."],
+  ["¿Se cumplió su hipótesis?","Que conectes resultado y decisión.","Sí. Como el p valor fue menor a 0,05, rechacé la hipótesis nula y acepté mi hipótesis de investigación: existe una relación significativa e inversa entre ambas variables."],
+  ["¿Cuáles fueron las limitaciones de su estudio?","Honestidad y madurez como investigador.","La principal limitación fue que trabajé con una sola universidad privada, por lo que los resultados aplican a esa población. Además, el uso de redes fue autorreportado por los estudiantes, lo que puede tener cierto margen de imprecisión."],
+  ["¿Cómo se relacionan sus conclusiones con sus objetivos?","Que tu tesis tiene un hilo conductor.","Cada conclusión responde a un objetivo. La conclusión general responde al objetivo general: determiné que existe una relación inversa y moderada entre el uso de redes sociales y el rendimiento académico. Y cada conclusión específica responde a su objetivo específico."],
+  ["¿Qué recomienda y a quién?","Recomendaciones concretas, dirigidas y basadas en tus resultados.","Recomiendo a la dirección de bienestar universitario incluir talleres de gestión del tiempo digital en sus tutorías. Y a futuros investigadores, ampliar el estudio a universidades públicas y de otras regiones para comparar resultados."]
+];
+C.simulacro=function(){
+  return {intro:"10 preguntas frecuentes. Primero responde en voz alta sin mirar; luego compara con la respuesta modelo y califícate con el semáforo.",
+  html:'<div class="bloque"><div class="sim-card" id="sim"></div><div class="puntos" id="puntos"></div></div>'+
+  '<div class="alerta"><b>Ojo:</b> el jurado también puede hacerte preguntas que no esperabas, justamente para ver cómo reaccionas. No las vas a predecir todas. Lo que sí puedes hacer es entenderte tan bien tu tesis que respondas desde tu hilo conductor: respira, repite la pregunta con tus palabras y responde lo que sí sabes.</div>',
+  tip:"Las respuestas modelo están en primera persona y sobre la tesis de ejemplo. Escribe tu propia versión con tus datos reales: esa es la que vas a decir.",
+  init:function(){
+    var i=0,abierta=false;
+    function puntos(){$("puntos").innerHTML=SIM.map(function(_,k){var s=estado.sim[k];return '<i class="'+(s||"")+(k===i?' act':'')+'" title="Pregunta '+(k+1)+'"></i>';}).join("");}
+    function pinta(){
+      var q=SIM[i],s=estado.sim[i];
+      $("sim").innerHTML='<div class="sim-top"><span>Pregunta '+(i+1)+' de '+SIM.length+'</span><span>'+Object.keys(estado.sim).length+' calificadas</span></div><p class="sim-q fade">'+q[0]+'</p>'+
+        (abierta?'<p class="busca" style="margin-top:12px"><b>Qué busca el jurado:</b> '+q[1]+'</p><p class="respuesta fade">'+q[2]+'</p><p style="margin-top:12px;font-weight:800">¿Cómo te fue?</p><div class="semaforo"><button class="v'+(s==="v"?" sel":"")+'" data-s="v">La dominé</button><button class="a'+(s==="a"?" sel":"")+'" data-s="a">Más o menos</button><button class="r'+(s==="r"?" sel":"")+'" data-s="r">Debo repasar</button></div>':'<p style="margin-top:14px;color:var(--navy-suave);font-weight:700">Respóndela en voz alta antes de ver la respuesta.</p>')+
+        '<div class="sim-acc"><button class="btn btn-sec" id="ant" '+(i===0?'disabled style="opacity:.5"':'')+'>Anterior</button>'+(abierta?'':'<button class="btn btn-oro" id="ver">Ver respuesta modelo</button>')+'<button class="btn btn-pri" id="sig">'+(i===SIM.length-1?'Volver a la primera':'Siguiente')+'</button></div>';
+      if($("ver"))$("ver").onclick=function(){abierta=true;pinta();};
+      $("ant").onclick=function(){if(i>0){i--;abierta=false;pinta();}};
+      $("sig").onclick=function(){i=(i+1)%SIM.length;abierta=false;pinta();};
+      document.querySelectorAll(".semaforo button").forEach(function(b){b.onclick=function(){estado.sim[i]=b.dataset.s;guardar();pinta();};});
+      puntos();
+    }
+    pinta();
+  }};
+};
+
+var CHECK=["Puedo decir qué pregunté y qué encontré en una sola frase","Completé mi hilo conductor sin mirar la tesis","Explico mi tesis en 60 palabras sin tecnicismos","Sé por qué elegí mi enfoque, tipo, nivel y diseño","Sé de dónde salió mi muestra y cómo la elegí","Distingo la validez de la confiabilidad de mi instrumento","Explico mi resultado principal con la fórmula N·S·P","Cada conclusión responde a un objetivo","Conozco mis limitaciones y mis recomendaciones","Ensayé mi presentación en voz alta y la cronometré","Practiqué preguntas del jurado varios días, no solo uno","Tengo mi hoja de una página lista para repasar"];
+C.listo=function(){
+  var h='<div class="bloque"><div class="caja" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><div class="barra" style="width:min(320px,100%);height:14px"><i id="cbar"></i></div><b id="ctxt"></b></div><div style="margin-top:12px">';
+  CHECK.forEach(function(c,i){h+='<label class="check'+(estado.check[i]?' ok':'')+'"><input type="checkbox" id="ck-'+i+'" data-c="'+i+'"'+(estado.check[i]?' checked':'')+'><span>'+c+'</span></label>';});
+  h+='</div><div id="cmsg"></div></div>'+
+  '<div class="oferta"><span class="pill">Siguiente paso</span><h3 style="margin-top:10px">Ya sabes cómo estudiar tu tesis. Ahora entrena para el día de tu sustentación.</h3><p>Si quieres llegar con más práctica y más seguridad, tengo herramientas pensadas justo para este momento:</p><div class="prods">'+
+  '<div class="prod"><span class="chip">Práctica ilimitada</span><h4>CLARA, tu entrenadora interactiva</h4><p>Practica preguntas del jurado en Modo Estudio y Modo Simulacro, a cualquier hora.</p></div>'+
+  '<div class="prod"><span class="chip oro">Guía PDF</span><h4>100 preguntas populares en la sustentación</h4><p>Y cómo responderlas. Para que ninguna pregunta te tome por sorpresa.</p></div>'+
+  '<div class="prod"><span class="chip">A tu medida</span><h4>Balotario personalizado</h4><p>15 preguntas del jurado con sus respuestas, hechas sobre tu propia investigación.</p></div>'+
+  '<div class="prod"><span class="chip oro">Acompañamiento</span><h4>Método SESE®</h4><p>Mi sistema estratégico para asegurar una sustentación exitosa con todo lo que necesitas para tu preparación.</p></div>'+
+  '</div><div class="fila-btn" style="margin-top:18px"><a class="btn btn-oro" href="https://wa.link/my94zd" target="_blank" rel="noopener">Escríbeme por WhatsApp</a><a class="btn btn-sec" href="https://soluciones.sustentacionexitosa.com" target="_blank" rel="noopener">Ver todas las soluciones</a></div></div>';
+  return {intro:"Marca solo lo que de verdad puedes hacer hoy. Lo que quede sin marcar es tu tarea para mañana.",html:h,
+  tip:"No necesitas saberlo todo. Necesitas entender tu tesis y saber volver a tu hilo conductor. Con eso, respondes con calma.",
+  init:function(){
+    function pinta(){
+      var n=CHECK.filter(function(_,i){return estado.check[i];}).length,pc=Math.round(n/CHECK.length*100);
+      $("cbar").style.width=pc+"%";$("ctxt").textContent=n+" de "+CHECK.length+" listos";
+      $("cmsg").innerHTML=n===CHECK.length?'<div class="resultado fade"><h3>¡Estás listo para sustentar!</h3><p>Repasa tu hoja de una página, descansa y confía en todo lo que entrenaste.</p></div>':n>=8?'<p class="alerta"><b>¡Ya casi!</b> Te faltan '+(CHECK.length-n)+'. Vuelve a esas herramientas en el índice.</p>':'';
+    }
+    document.querySelectorAll("[data-c]").forEach(function(c){c.onchange=function(){estado.check[c.dataset.c]=c.checked;guardar();c.parentNode.classList.toggle("ok",c.checked);pinta();};});
+    pinta();
+  }};
+};
+
+/* ---------- Render ---------- */
+function copiar(txt){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast("Copiado");},function(){fallback(txt);});}else fallback(txt);
+}
+function fallback(txt){
+  var t=document.createElement("textarea");t.value=txt;document.body.appendChild(t);t.select();
+  try{document.execCommand("copy");toast("Copiado");}catch(e){toast("Selecciona y copia manualmente");}document.body.removeChild(t);
+}
+function vistaMod(id){
+  var idx=MODS.findIndex(function(m){return m.id===id;});if(idx<0)return portada();
+  var m=MODS[idx],f=FASES[m.f-1],c=C[id]();
+  var prev=MODS[idx-1],next=MODS[idx+1],hecho=estado.hechos[id];
+  var html='<section class="vista fade"><div class="wrap">'+
+    '<p class="eyebrow">Fase '+f.n+' · '+f.t+' · Herramienta '+(idx+1)+' de '+MODS.length+'</p>'+
+    '<h2>'+m.t+'</h2><p class="intro">'+c.intro+'</p>'+c.html+
+    '<div class="tip"><span class="firma">Sandra:</span><p>'+c.tip+'</p></div>'+
+    '<div class="nav-mod">'+(prev?'<button class="btn btn-sec" data-ir="'+prev.id+'">← Anterior</button>':'<button class="btn btn-sec" data-ir="inicio">← Portada</button>')+
+    '<div class="der"><button class="btn '+(hecho?'btn-hecho':'btn-sec')+'" id="marcar">'+(hecho?'✓ Estudiado':'Marcar como estudiado')+'</button>'+
+    (next?'<button class="btn btn-pri" data-ir="'+next.id+'" data-auto="1">Siguiente →</button>':'<button class="btn btn-pri" data-ir="inicio" data-auto="1">Ver mi ruta</button>')+'</div></div>'+
+    '</div></section>';
+  return {html:html,init:c.init};
+}
+function ir(id){
+  var app=$("app"),r;
+  if(!id||id==="inicio"){app.innerHTML=portada()+pie();r=null;}
+  else{r=vistaMod(id);app.innerHTML=r.html+pie();}
+  if(r&&r.init)r.init();
+  var mk=$("marcar");if(mk)mk.onclick=function(){estado.hechos[id]=!estado.hechos[id];guardar();progreso();mk.className="btn "+(estado.hechos[id]?"btn-hecho":"btn-sec");mk.textContent=estado.hechos[id]?"✓ Estudiado":"Marcar como estudiado";};
+  try{history.replaceState(null,"",id&&id!=="inicio"?"#"+id:location.pathname+location.search);}catch(e){}
+  window.scrollTo(0,0);progreso();
+}
+function pie(){return '<footer class="pie wrap">Guía creada por Sandra · Sustentación Exitosa · Método SESE®<br>Los ejemplos usan una tesis modelo: adapta cada respuesta a tus datos reales.</footer>';}
+
+document.addEventListener("click",function(e){
+  var b=e.target.closest("[data-ir]");if(!b)return;
+  var actual=(location.hash||"").slice(1);
+  if(b.dataset.auto&&actual&&!estado.hechos[actual]){estado.hechos[actual]=true;guardar();}
+  $("indice").hidden=true;ir(b.dataset.ir);
+});
+$("ir-inicio").onclick=function(){ir("inicio");};
+$("abrir-indice").onclick=function(){
+  $("indice-lista").innerHTML=FASES.map(function(f){return '<p class="eyebrow" style="margin:14px 0 6px">Fase '+f.n+' · '+f.t+'</p><div class="mods">'+MODS.map(function(m,i){return m.f===f.n?tarjetaMod(m,i):"";}).join("")+'</div>';}).join("");
+  $("indice").hidden=false;
+};
+$("cerrar-indice").onclick=function(){$("indice").hidden=true;};
+$("indice").onclick=function(e){if(e.target===this)this.hidden=true;};
+window.addEventListener("hashchange",function(){var h=location.hash.slice(1);if(h&&MODS.some(function(m){return m.id===h;}))ir(h);});
+var inicial=(location.hash||"").slice(1);
+ir(MODS.some(function(m){return m.id===inicial;})?inicial:"inicio");
+})();
+</script>
